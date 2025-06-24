@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fathima S - Data Analyst</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background-color: #f8fafc;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4299e1;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #2d3748;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #4299e1;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #4299e1;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #2d3748;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            min-height: calc(100vh - 160px);
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #4299e1;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .cta-button:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 153, 225, 0.4);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 4rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2d3748;
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #4299e1;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skill-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-item h4 {
+            color: #4299e1;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+
+        .project-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: #e2e8f0;
+            color: #4a5568;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            color: #4299e1;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: #3182ce;
+        }
+
+        /* Resume Section */
+        .resume-content {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .resume-download {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+        }
+
+        .resume-download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info h3 {
+            color: #4299e1;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item a {
+            color: #4299e1;
+            text-decoration: none;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4299e1;
+        }
+
+        .submit-btn {
+            background: #4299e1;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #3182ce;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #4299e1;
+        }
+
+        .excel-skill {
+            text-align: left;
+        }
+
+        .excel-skill ul li {
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+        }
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="showPage('home')">Fathima S.</a>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('about')">About</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('projects')">Projects</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('resume')">Resume</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('contact')">Contact</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Hi, I'm Fathima S</h1>
+                    <p>Aspiring Data Analyst passionate about turning data into actionable insights</p>
+                    <a href="#" class="cta-button" onclick="showPage('projects')">View My Work</a>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="container">
+                    <h2 class="section-title">What I Do</h2>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <h4>Excel Advanced</h4>
+                            <p>Power Pivot, Power Query, Pivot Tables, Dashboard Creation</p>
+                        </div>
+                        <div class="skill-item">
+                            <h4>Data Modeling</h4>
+                            <p>Relationships, calculated fields, data transformation</p>
+                        </div>
+                        <div class="skill-item">
+                            <h4>Data Visualization</h4>
+                            <p>Interactive dashboards, dynamic charts, KPI tracking</p>
+                        </div>
+                        <div class="skill-item">
+                            <h4>Business Intelligence</h4>
+                            <p>Transforming raw data into actionable business insights</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- About Page -->
+        <div id="about" class="page section">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3 class="section-subtitle">My Journey</h3>
+                        <p>I'm an aspiring data analyst with a passion for uncovering insights hidden within complex datasets. My journey into data analytics began with a fascination for patterns and trends, leading me to develop expertise in various analytical tools and techniques.</p>
+                        
+                        <p>Currently pursuing my career in data analytics, I've gained proficiency in Excel for data manipulation, SQL for database querying, Python for advanced analytics, and Power BI for creating compelling visualizations that tell data-driven stories.</p>
+
+                        <h3 class="section-subtitle">Education & Goals</h3>
+                        <p>I hold a strong educational background in data analysis and am continuously expanding my knowledge through online courses and practical projects. My goal is to leverage data analytics to help organizations make informed decisions and drive business growth.</p>
+
+                        <p>I'm particularly interested in business intelligence, predictive analytics, and data visualization. I believe that data has the power to transform businesses, and I'm excited to be part of that transformation.</p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="section-subtitle">Technical Skills</h3>
+                        <div class="skills-grid">
+                            <div class="skill-item">
+                                <h4>Excel</h4>
+                                <p>Advanced formulas, pivot tables, data modeling</p>
+                            </div>
+                            <div class="skill-item">
+                                <h4>SQL</h4>
+                                <p>Query optimization, joins, stored procedures</p>
+                            </div>
+                            <div class="skill-item">
+                                <h4>Python</h4>
+                                <p>Pandas, NumPy, Matplotlib, statistical analysis</p>
+                            </div>
+                            <div class="skill-item">
+                                <h4>Power BI</h4>
+                                <p>Dashboard creation, DAX, data modeling</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Page -->
+        <div id="projects" class="page section">
+            <div class="container">
+                <h2 class="section-title">My Excel Dashboard Projects</h2>
+                <p style="text-align: center; font-size: 1.1rem; margin-bottom: 3rem; color: #4a5568; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    These interactive dashboards showcase my expertise in Excel's advanced features, focusing on comprehensive data analysis and business intelligence through dynamic visualizations and pivot table implementations.
+                </p>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image" style="text-align: center; padding: 20px 10px; color: white; background: linear-gradient(to right, #667eea, #764ba2); border-top-left-radius: 12px; border-top-right-radius: 12px;">
+                            <div style="font-size: 1.2rem; font-weight: 600;">
+                                📞 Call Center Analytics
+                            </div>
+                            <div style="font-size: 0.95rem; margin-top: 6px; opacity: 0.9;">
+                                Interactive Dashboard
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="project-content">
+                            <h3 class="project-title">Call Center Performance Dashboard</h3>
+                            <p class="project-description">
+                                <strong>What it analyzes:</strong> Comprehensive call center performance analysis tracking representative productivity, customer demographics, call trends, and revenue generation.<br><br>
+                                <strong>Key Insights Delivered:</strong><br>
+                                • Call volume trends and patterns analysis<br>
+                                • Revenue generation by each sales representative<br>
+                                • Call quality ratings and performance metrics<br>
+                                • Customer geographic distribution and demographics<br>
+                                • Representative ranking based on calls and revenue<br>
+                                • Weekly call trend analysis with visual comparisons<br>
+                                • Gender-based caller analysis and patterns
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Excel</span>
+                                <span class="tech-tag">Pivot Tables</span>
+                                <span class="tech-tag">Interactive Charts</span>
+                                <span class="tech-tag">Data Visualization</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link" onclick="showDashboardModal(1)">View Dashboard →</a>
+                                <a href="#" class="project-link">Download Dashboard →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-image" style="text-align: center; padding: 20px 10px; color: white; background: linear-gradient(to right, #38b2ac, #319795); border-top-left-radius: 12px; border-top-right-radius: 12px;">
+                            <div style="font-size: 1.2rem; font-weight: 600;">
+                                🏥 Hospital ER Analytics
+                            </div>
+                            <div style="font-size: 0.95rem; margin-top: 6px; opacity: 0.9;">
+                                Healthcare Dashboard
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Hospital Emergency Room Analytics Dashboard</h3>
+                            <p class="project-description">
+                                <strong>What it analyzes:</strong> Comprehensive 2-year hospital emergency room data analysis tracking patient flow, satisfaction metrics, departmental performance, and operational efficiency.<br><br>
+                                <strong>Key Insights Delivered:</strong><br>
+                                • Patient admission patterns by age group and demographics<br>
+                                • Monthly patient volume trends and seasonal analysis<br>
+                                • Patient satisfaction scores and experience metrics<br>
+                                • Average waiting times and admission delays tracking<br>
+                                • Department-wise patient distribution and capacity analysis<br>
+                                • Gender-based patient analytics and treatment patterns<br>
+                                • Admission timing analysis (on-time vs delayed admissions)<br>
+                                • Interactive filtering for deep-dive departmental insights
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Excel</span>
+                                <span class="tech-tag">Power Query</span>
+                                <span class="tech-tag">Power Pivot</span>
+                                <span class="tech-tag">Interactive Dashboard</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link" onclick="showDashboardModal(2)">View Dashboard →</a>
+                                <a href="#" class="project-link">Download Dashboard →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Future Projects Card -->
+                    <div class="project-card" style="opacity: 0.7; border: 2px dashed #cbd5e0;">
+                        <div class="project-image" style="background: linear-gradient(45deg, #a0aec0, #718096);">
+                            🚀 Coming Soon
+                            <div style="font-size: 0.9rem; margin-top: 10px; opacity: 0.8;">More Projects</div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Future Excel Projects</h3>
+                            <p class="project-description">
+                                I'm continuously working on new dashboard projects to expand my portfolio. Future projects will include:<br><br>
+                                • Advanced financial modeling dashboards<br>
+                                • Customer analytics with cohort analysis<br>
+                                • Inventory management systems<br>
+                                • HR analytics and performance tracking
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Excel</span>
+                                <span class="tech-tag">Power Pivot</span>
+                                <span class="tech-tag">Advanced Features</span>
+                            </div>
+                            <div class="project-links">
+                                <span style="color: #a0aec0; font-style: italic;">In Development</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Excel Expertise Section -->
+                <div style="margin-top: 4rem; background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                    <h3 class="section-subtitle" style="text-align: center; margin-bottom: 2rem;">My Excel Expertise</h3>
+                    <div class="skills-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                        <div class="excel-skill">
+                            <h4 style="color: #4299e1; margin-bottom: 1rem;">🔄 Power Query</h4>
+                            <ul style="list-style: none; padding: 0; line-height: 1.8;">
+                                <li>• Data transformation and cleaning</li>
+                                <li>• Automated data refresh</li>
+                                <li>• Multiple data source integration</li>
+                                <li>• Custom M code functions</li>
+                            </ul>
+                        </div>
+                        <div class="excel-skill">
+                            <h4 style="color: #4299e1; margin-bottom: 1rem;">⚡ Power Pivot</h4>
+                            <ul style="list-style: none; padding: 0; line-height: 1.8;">
+                                <li>• Data modeling and relationships</li>
+                                <li>• DAX formulas and measures</li>
+                                <li>• Large dataset handling</li>
+                                <li>• Advanced calculated fields</li>
+                            </ul>
+                        </div>
+                        <div class="excel-skill">
+                            <h4 style="color: #4299e1; margin-bottom: 1rem;">📊 Pivot Tables</h4>
+                            <ul style="list-style: none; padding: 0; line-height: 1.8;">
+                                <li>• Interactive data summarization</li>
+                                <li>• Dynamic filtering and slicing</li>
+                                <li>• Grouping and aggregation</li>
+                                <li>• Chart integration</li>
+                            </ul>
+                        </div>
+                        <div class="excel-skill">
+                            <h4 style="color: #4299e1; margin-bottom: 1rem;">📈 Visualization</h4>
+                            <ul style="list-style: none; padding: 0; line-height: 1.8;">
+                                <li>• Interactive dashboards</li>
+                                <li>• Dynamic chart creation</li>
+                                <li>• Conditional formatting</li>
+                                <li>• User-friendly interfaces</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Modal -->
+        <div id="dashboardModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeDashboardModal()">&times;</span>
+                <h3 id="modalTitle">Dashboard Screenshots</h3>
+                <div id="modalBody">
+                    <p>Screenshots and detailed views of the dashboard will be displayed here.</p>
+                    <p style="color: #718096; font-style: italic;">To add your screenshots: Replace this content with actual images of your Excel dashboards.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resume Page -->
+        <div id="resume" class="page section">
+            <div class="container">
+                <h2 class="section-title">Resume</h2>
+                <div class="resume-content">
+                    <p style="font-size: 1.2rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                        Download my resume to learn more about my experience, education, and technical skills in data analytics. I'm always open to discussing new opportunities and collaboration.
+                    </p>
+                    <a href="documents/Fathima_S_Resume_.pdf" class="resume-download" download>Download Resume (PDF)</a>
+
+                    <p style="margin-top: 2rem; color: #718096;">
+                        Last updated: June 2025
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="contact" class="page section">
+            <div class="container">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Let's Connect</h3>
+                        <p style="margin-bottom: 2rem;">I'm always interested in discussing data analytics opportunities, collaboration, or just connecting with fellow data enthusiasts.</p>
+                        
+                        <div class="contact-item">
+                            <strong>Email:</strong><br>
+                            <a href="mailto:fathimas6103@gmail.com">fathimas6103@gmail.com</a>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <strong>LinkedIn:</strong><br>
+                            <a href="https://linkedin.com/in/fathima-s" target="_blank">linkedin.com/in/fathima-s</a>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <strong>Location:</strong><br>
+                            Kollam, Kerala, India
+                        </div>
+                    </div>
+                    
+                    <form class="contact-form" onsubmit="handleSubmit(event)">
+                        <h3 style="margin-bottom: 1.5rem; color: #4299e1;">Send a Message</h3>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Fathima S. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Navigation functionality
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Close mobile menu if open
+            const navMenu = document.querySelector('.nav-menu');
+            const hamburger = document.querySelector('.hamburger');
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navMenu = document.querySelector('.nav-menu');
+            const hamburger = document.querySelector('.hamburger');
+            
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Dashboard modal functionality
+        function showDashboardModal(dashboardNumber) {
+            const modal = document.getElementById('dashboardModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            modalTitle.textContent = `Excel Dashboard #${dashboardNumber}`;
+            
+            // You can customize the content for each dashboard
+            const dashboardContent = {
+                1: `
+                    <div style="text-align: center;">
+                        <p style="margin-bottom: 2rem;"><strong>Call Center Performance Dashboard:</strong> A comprehensive analysis of call center operations, representative performance, and customer insights using advanced Excel features.</p>
+                        
+                        <div style="background: #f7fafc; padding: 2rem; border-radius: 10px; margin-bottom: 2rem;">
+                            <h4 style="color: #4299e1; margin-bottom: 1rem;">📷 Dashboard</h4>
+                           <p style="color: #718096; margin-bottom: 1rem;">Interactive dashboard showcasing call center analytics:</p>
+
+<!-- Actual Screenshot Below --><a href="images/call_center_dashboard_view.png" target="_blank">
+    <img src="images/call_center_dashboard_view.png" alt="Call Center Dashboard Screenshot" style="width: 100%; max-width: 700px; border-radius: 10px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: zoom-in;" />
+</a>
+
+
+                            
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                                <div style="padding: 1rem; background: white; border-radius: 8px; border-left: 4px solid #4299e1;">
+                                    <strong>Main Dashboard View</strong><br>
+                                    <small>Overall performance metrics</small>
+                                </div>
+                                <div style="padding: 1rem; background: white; border-radius: 8px; border-left: 4px solid #38b2ac;">
+                                    <strong>Representative Rankings</strong><br>
+                                    <small>Performance comparisons</small>
+                                </div>
+                                <div style="padding: 1rem; background: white; border-radius: 8px; border-left: 4px solid #9f7aea;">
+                                    <strong>Geographic Analysis</strong><br>
+                                    <small>Customer distribution</small>
+                                </div>
+                                <div style="padding: 1rem; background: white; border-radius: 8px; border-left: 4px solid #f56565;">
+                                    <strong>Trend Analysis</strong><br>
+                                    <small>Weekly call patterns</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: left;">
+                            <h4 style="color: #4299e1; margin-bottom: 1rem;">📊 Dashboard Components:</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                                <div>
+                                    <h5 style="color: #2d3748; margin-bottom: 1rem;">📈 Performance Metrics</h5>
+                                    <ul style="line-height: 1.8; margin-left: 1rem;">
+                                        <li>Revenue generation by representative</li>
+                                        <li>Call volume and conversion rates</li>
+                                        <li>Representative ranking system</li>
+                                        <li>Quality ratings analysis</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 style="color: #2d3748; margin-bottom: 1rem;">🌍 Customer Analytics</h5>
+                                    <ul style="line-height: 1.8; margin-left: 1rem;">
+                                        <li>Geographic distribution of customers</li>
+                                        <li>Country-wise revenue analysis</li>
+                                        <li>Male vs Female caller patterns</li>
+                                        <li>Customer demographics insights</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4 style="color: #4299e1; margin-bottom: 1rem;">🔧 Technical Implementation:</h4>
+                            <ul style="line-height: 1.8; margin-left: 1rem;">
+                                <li><strong>Pivot Tables:</strong> Created dynamic, interactive tables for multi-dimensional analysis of call data</li>
+                                <li><strong>Advanced Charts:</strong> Column charts for weekly trends, comparative analysis charts for gender-based insights</li>
+                                <li><strong>Interactive Elements:</strong> Slicers and filters allowing real-time data exploration</li>
+                                <li><strong>Data Visualization:</strong> Professional formatting with conditional formatting for performance indicators</li>
+                                <li><strong>Dashboard Design:</strong> User-friendly layout optimized for executive reporting and decision-making</li>
+                            </ul>
+                            
+                            <div style="background: #e6fffa; padding: 1.5rem; border-radius: 10px; margin-top: 2rem; border-left: 4px solid #38b2ac;">
+                                <h5 style="color: #234e52; margin-bottom: 1rem;">💡 Business Impact</h5>
+                                <p style="color: #234e52; margin: 0;">This dashboard enables call center managers to identify top performers, optimize resource allocation, understand customer demographics, and track performance trends for data-driven decision making.</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                2: `
+    <div style="text-align: center;">
+        <p style="margin-bottom: 2rem;"><strong>Hospital Emergency Room Dashboard:</strong> A comprehensive Excel-based dashboard analyzing two years of emergency room data, including patient flow, department loads, wait times, satisfaction scores, and demographics.</p>
+        
+        <div style="background: #f7fafc; padding: 2rem; border-radius: 10px; margin-bottom: 2rem;">
+            <h4 style="color: #4299e1; margin-bottom: 1rem;">📷 Dashboard</h4>
+            <p style="color: #718096; margin-bottom: 1rem;">Interactive dashboard showcasing emergency room analytics:</p>
+
+            <!-- Replace this path with your real image file -->
+            <a href="images/hospital_dashboard_view.png" target="_blank">
+                <img src="images/hospital_dashboard_view.png" alt="Hospital ER Dashboard Screenshot" style="width: 100%; max-width: 700px; border-radius: 10px; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: zoom-in;" />
+            </a>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div style="padding: 1rem; background: white; border-radius: 8px; border-left: 4px solid #4299e1;">
+                    <strong>Monthly Patient Trends</strong><br>
+                    <small>Admissions and total visits</small>
+                </div>
+                <div style="padding: 1rem; background: white; border-radius: 8px; border-left: 4px solid #38b2ac;">
+                    <strong>Age Group Distribution</strong><br>
+                    <small>Patients segmented by age</small>
+                </div>
+                <div style="padding: 1rem; background: white; border-radius: 8px; border-left: 4px solid #9f7aea;">
+                    <strong>Department Admissions</strong><br>
+                    <small>ER load by department</small>
+                </div>
+                <div style="padding: 1rem; background: white; border-radius: 8px; border-left: 4px solid #f56565;">
+                    <strong>Waiting Time & Delays</strong><br>
+                    <small>Timeliness of admission</small>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: left;">
+            <h4 style="color: #4299e1; margin-bottom: 1rem;">📊 Dashboard Components:</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                <div>
+                    <h5 style="color: #2d3748; margin-bottom: 1rem;">📈 Patient Insights</h5>
+                    <ul style="line-height: 1.8; margin-left: 1rem;">
+                        <li>Monthly count of ER patients</li>
+                        <li>Admission rates and delays</li>
+                        <li>Average waiting time per patient</li>
+                        <li>Satisfaction score breakdown</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 style="color: #2d3748; margin-bottom: 1rem;">🧍‍♀️ Demographic Analysis</h5>
+                    <ul style="line-height: 1.8; margin-left: 1rem;">
+                        <li>Gender-wise patient breakdown</li>
+                        <li>Admissions by age groups</li>
+                        <li>Department-wise analysis</li>
+                        <li>Admission timeliness by segment</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h4 style="color: #4299e1; margin-bottom: 1rem;">🔧 Technical Implementation:</h4>
+            <ul style="line-height: 1.8; margin-left: 1rem;">
+                <li><strong>Power Query:</strong> Cleaned and merged multiple years of hospital records for seamless analysis</li>
+                <li><strong>Power Pivot:</strong> Created relationships across patient data, time series, departments, and outcomes</li>
+                <li><strong>Calculated Fields:</strong> Used DAX to derive KPIs like delay percentages, average waiting time, and satisfaction score</li>
+                <li><strong>Slicers & Filters:</strong> Enabled dynamic filtering by department, gender, age, and month</li>
+                <li><strong>Excel Charts & Formatting:</strong> Delivered a clear and interactive interface for quick insights</li>
+            </ul>
+
+            <div style="background: #e6fffa; padding: 1.5rem; border-radius: 10px; margin-top: 2rem; border-left: 4px solid #38b2ac;">
+                <h5 style="color: #234e52; margin-bottom: 1rem;">💡 Business Impact</h5>
+                <p style="color: #234e52; margin: 0;">This dashboard supports hospital administrators in monitoring emergency operations, understanding patient trends, improving service quality, and ensuring data-driven improvements in patient care.</p>
+            </div>
+        </div>
+    </div>
+`};
+
+            
+            modalBody.innerHTML = dashboardContent[dashboardNumber] || 'Dashboard details coming soon...';
+            modal.style.display = 'block';
+        }
+
+        function closeDashboardModal() {
+            document.getElementById('dashboardModal').style.display = 'none';
+        }
+
+        // Contact form submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Thank you for your message! I\'ll get back to you soon.');
+            event.target.reset();
+        }
+
+        // Smooth scrolling for internal navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add scroll effect to navbar
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 100) {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                    navbar.style.backdropFilter = 'blur(10px)';
+                } else {
+                    navbar.style.background = '#ffffff';
+                    navbar.style.backdropFilter = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
